@@ -1,6 +1,7 @@
 from celery_worker import celery
 from flask_mail import Message
 from api.create_app import create_app
+import os
 
 app = create_app()
 

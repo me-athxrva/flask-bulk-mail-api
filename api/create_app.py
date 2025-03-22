@@ -14,7 +14,6 @@ limiter = Limiter(
 
 def create_app():
     app = Flask(__name__)
-
     app.config.from_object(Config) # config for credentials
 
     mail.init_app(app) # flask mailer
