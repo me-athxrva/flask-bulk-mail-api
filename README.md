@@ -13,12 +13,26 @@ This api is a simple utility that allows you to send emails to multiple recipien
 
 1.  Clone the repository and navigate to the project directory.
 2.  Install the required packages by running `pip install -r requirements.txt`.
-3.  Edit the `.env` file in the project root and add your GMail Username and App Password.
+3.  Add `.env` file in the project root and add your GMail Username and App Password. (.env format is given below.)
 4.  Run the application by executing `python -m api.app`.
 5.  Run the celery worker by executing `celery -A celery_worker.celery worker --loglevel=info --pool=solo`.
 6.  In your postman, go to `http://localhost:5000/sendMail` to access the api endpoint.
 7.  Click on the "Send" button to send the task to celery worker.
-8. Response with a task id will be generated on successful task initalisation.
+8.  Response with a task id will be generated on successful task initalisation.
+
+## .env format
+
+# OAuth credentials
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+# Celery worker backend credentials
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+# flask-mail credentials
+MAIL_USERNAME = 'Your-Mail'
+MAIL_PASSWORD = 'Your App Password' 
 
 ## API json format
 
@@ -35,8 +49,8 @@ The email format should be "Designation<emailid@{}>"
 ## Built With
 
 -   [Flask](https://flask.palletsprojects.com/en/2.1.x/) - The api framework used
--   [Redis](https://flask.palletsprojects.com/en/2.1.x/) - Message broker for celery
--   [Celery](https://flask.palletsprojects.com/en/2.1.x/) - Distributed task queue
+-   [Redis](https://redis.io/docs/latest/) - Message broker for celery
+-   [Celery](https://docs.celeryq.dev/en/stable/) - Distributed task queue
 
 
 ## Project Website
