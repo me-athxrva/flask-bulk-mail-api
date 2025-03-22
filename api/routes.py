@@ -3,7 +3,7 @@ from flask_restful import Resource
 from api.create_app import limiter
 
 class BulkMailSender(Resource):
-    # decorators = [limiter.limit("1 per minute")]
+    decorators = [limiter.limit("1 per minute")]
     def post(self):
         from api.tasks import send_bulk_mail
         
