@@ -22,6 +22,7 @@ This api is a simple utility that allows you to send emails to multiple recipien
 
 ## .env format
 
+```python
 # OAuth credentials
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
@@ -33,14 +34,17 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 # flask-mail credentials
 MAIL_USERNAME = 'Your-Mail'
 MAIL_PASSWORD = 'Your App Password' 
+```
 
 ## API json format
 
+```json
 {
     "emails": ["yourmail1@example.com", "yourmail2@example.com"],
     "subject": "API Test Mail",
     "message": "This is an test mail using flask bulk mailing api."
 }
+```
 
 ## Email format
 
