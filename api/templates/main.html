@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='stylesheets/main.css')}}">
+    <title>Flask | BulkMailer</title>
+</head>
+<body>
+    <nav id="navbar">
+        <div id="internal-nav">
+            
+        </div>
+        <div id="account">
+            <img src="{{profile_pic}}" id="profile_pic" alt="profile">
+            <div id="profile_dropdown">
+                <button id="account_btn" class="drp_btn">Account</button>
+                <button id="logout_btn" class="drp_btn">Logout</button>
+            </div>
+        </div>
+    </nav>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js" integrity="sha512-f6bQMg6nkSRw/xfHw5BCbISe/dJjXrVGfz9BSDwhZtiErHwk7ifbmBEtF9vFW8UNIQPhV2uEFVyI/UHob9r7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{url_for('static', filename='scripts/home.js')}}" defer></script>
+</body>
+
+</html>

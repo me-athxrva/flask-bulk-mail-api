@@ -17,3 +17,6 @@ class Config:
     # Celery and Redis
     CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
     CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_URL')
+
+    # jwt 
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
