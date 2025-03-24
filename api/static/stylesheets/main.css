@@ -75,8 +75,11 @@ body::-webkit-scrollbar {
 }
 #container1,
 #container2 {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   width: 100vw;
+}
+#container1{
+  min-height: 100vh;
 }
 #logo,
 #logo_txt {
@@ -249,7 +252,11 @@ body::-webkit-scrollbar {
 }
 #tech_stack {
   padding: 40px 0;
-  height: 100px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 #tech_title {
   padding: 5px 10px;
@@ -260,4 +267,87 @@ body::-webkit-scrollbar {
   font-size: 2rem;
   font-weight: 600;
   gap: 10px;
+}
+#stack_list {
+  margin-top: 50px;
+  padding: 20px 50px;
+  display: flex;
+  width: 50vw;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.lib {
+  height: auto;
+  width: 75px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 5px;
+}
+.lib_titl {
+  font-size: 1.2rem;
+  color: white;
+  font-weight: 300;
+}
+#github_info{
+  background-color: rgb(255, 255, 255, 0.15);
+  margin-top: 50px;
+  width: 50vw;
+  padding: 5px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* Phone Responsive */
+@media screen and (max-width: 480px) {
+  #container2 {
+    height: auto;
+    width: 100vw;
+  }
+  #main_txt {
+    margin-top: 40px;
+    height: 40%;
+    font-size: 2.5rem;
+  }
+  #main_txt a {
+    margin: 10px 10px;
+    font-weight: 300;
+    font-size: 1.5rem;
+  }
+  #usage_txt {
+    padding: 10px 5%;
+    font-size: 1.05rem;
+  }
+  #g_login span {
+    padding: 20px 0;
+    font-size: 1rem;
+    font-weight: 200;
+    text-align: center;
+  }
+  #logo_txt {
+    font-size: 1.2rem;
+  }
+  #developer {
+    width: 80px;
+  }
+  #tech_stack {
+    padding: 100px 0;
+    display: block;
+    place-items: center;
+  }
+  #stack_list {
+    padding: 0px 50px;
+    width: 100vw;
+  }
+  #tech_title {
+    margin-top: 0px;
+  }
 }

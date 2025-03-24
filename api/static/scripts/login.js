@@ -8,26 +8,27 @@ oauth_login_btn.addEventListener('click',()=>{
 })
 
 gsap.fromTo(".fade_out",{
-    opacity: 1
+    opacity: 1,
+    display: 'flex'
 },{
     opacity: 0,
     duration: 0.2,
     ease: 'none',
+    display: 'none',
     scrollTrigger: {
         trigger: '#container1',
         start: '20% top',
         endTrigger: '#container1',
         end: '20% top',
         toggleActions: 'play none none reverse',
-    }
+    },
 });
 
 async function checkAuthStatus() {
     const token = localStorage.getItem("jwt");
 
     if (!token) {
-        console.log("No token found. User is not logged in.");
-        return window.location.href = '/auth/login';
+        return console.error("No token found!")
     }
 
     try {
@@ -45,7 +46,7 @@ async function checkAuthStatus() {
             const app = document.getElementById("app");  
             app.innerHTML = "";
             app.innerHTML = data.html;
-            loadExternalScript('/static/scripts/home.js')
+            loadExternalScript('/static/scripts/home.js');
         } else {
             console.log("Authentication failed.");
         }

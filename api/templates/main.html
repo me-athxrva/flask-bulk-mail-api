@@ -12,13 +12,14 @@
             
         </div>
         <div id="account">
-            <img src="{{profile_pic}}" id="profile_pic" alt="profile">
+            <img src="{{profile_picture}}" id="profile_pic" alt="profile" crossorigin="anonymous"/>
             <div id="profile_dropdown">
                 <button id="account_btn" class="drp_btn">Account</button>
                 <button id="logout_btn" class="drp_btn">Logout</button>
             </div>
         </div>
     </nav>
+    <p style="color: #fff;">{{profile_info}}</p>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js" integrity="sha512-f6bQMg6nkSRw/xfHw5BCbISe/dJjXrVGfz9BSDwhZtiErHwk7ifbmBEtF9vFW8UNIQPhV2uEFVyI/UHob9r7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{url_for('static', filename='scripts/home.js')}}" defer></script>
 </body>

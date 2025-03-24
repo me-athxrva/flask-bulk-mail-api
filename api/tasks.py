@@ -11,7 +11,6 @@ from celery_worker import celery
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 
 def refresh_access_token(refresh_token, user_email):
-    """Refresh the access token using the refresh token"""
     client_id = os.getenv("GOOGLE_CLIENT_ID")
     client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
 

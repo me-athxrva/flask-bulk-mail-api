@@ -1,5 +1,4 @@
 document.addEventListener("click", function (event) {
-    console.log("Event detected on:", event.target); 
 
     let dropdown = document.getElementById("profile_dropdown");
 

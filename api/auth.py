@@ -86,15 +86,29 @@ class auth_status(Resource):
             return {"error": "Session mismatch. Please log in again."}, 401
         
         access_token = user_data["oauth_token"].get("access_token")
-
         if not access_token:
             return {"error": "Access token not found"}, 401
-        headers = {"Authorization": f"Bearer {access_token}"}
-        response = requests.get("https://www.googleapis.com/oauth2/v3/userinfo", headers=headers)
 
-        if response.status_code == 200:
-            profile_info = response.json()
-            profile_picture = profile_info.get("picture") 
+        if not user_data.get("profile_picture"):
+            profile = getUserInfo(access_token)
+            mongo.db.users.update_one(
+                {"email": user},
+                {"$set": {"profile_picture": profile['picture']}},
+                upsert=True
+            )
+            profile_picture=profile['picture']
+        else:
+            profile_picture=user_data.get("profile_picture")
 
-        html_content = render_template('main.html', profile_pic=profile_picture)
+        html_content = render_template('main.html', profile_picture=profile_picture)
         return {"message": "User authenticated",'html': html_content}, 200
+
+
+def getUserInfo(access_token):
+    headers = {"Authorization": f"Bearer {access_token}"}
+    response = requests.get("https://www.googleapis.com/oauth2/v3/userinfo", headers=headers)
+
+    if response.status_code == 200:
+        profile_info = response.json()
+
+    return profile_info
