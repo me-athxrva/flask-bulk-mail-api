@@ -3,6 +3,7 @@ import smtplib
 import base64
 import requests
 import time
+from datetime import datetime, timezone
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from api.extensions import mongo
@@ -43,13 +44,26 @@ def refresh_access_token(refresh_token, user_email):
         print("[ERROR] Failed to refresh token:", new_token)
         return None
 
-@celery.task
-def send_bulk_mail(user_email, recipients, subject, body):
+@celery.task(bind=True)
+def send_bulk_mail(self, user_email, recipients, subject, body):
+    task_id = self.request.id
+    mongo.db.task_logs.insert_one({
+            "task_id": task_id,
+            "user_email": user_email,
+            "recipients": recipients,
+            "subject": subject,
+            "body": body[:100],  
+            "status": "pending",
+            "error": None,
+            "created_at": datetime.now(timezone.utc),
+            "updated_at": datetime.now(timezone.utc)
+        })
     try:
+        
         user_data = mongo.db.users.find_one({"email": user_email})
         if not user_data:
             return {"error": "User not found, please login again."}
-
+        
         access_token = user_data['oauth_token'].get('access_token')
         refresh_token = user_data['oauth_token'].get('refresh_token')
         issued_at = user_data['oauth_token'].get('issued_at', 0)
@@ -91,9 +105,18 @@ def send_bulk_mail(user_email, recipients, subject, body):
             smtp_server.sendmail(user_email, recipient, msg.as_string())
 
         smtp_server.quit()
+        mongo.db.task_logs.update_one({"task_id": task_id}, {
+            "$set": {"status": "completed", "updated_at": datetime.now(timezone.utc)}
+        })
         return {"status": "Emails sent successfully"}
 
     except smtplib.SMTPAuthenticationError as e:
+        mongo.db.task_logs.update_one({"task_id": task_id}, {
+            "$set": {"status": "SMPT Authentication Error", "error": str(e), "updated_at": datetime.now(timezone.utc)}
+        })
         return {"error": f"SMTP Authentication failed: {str(e)}"}
     except Exception as e:
+        mongo.db.task_logs.update_one({"task_id": task_id}, {
+            "$set": {"status": "failed", "error": str(e), "updated_at": datetime.now(timezone.utc)}
+        })
         return {"error": str(e)}

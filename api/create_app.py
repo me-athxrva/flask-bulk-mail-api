@@ -1,9 +1,10 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template
 from flask_restful import Api
 from config import Config 
 from flask_limiter import Limiter 
 from flask_limiter.util import get_remote_address
 from api.extensions import mongo
+from flask_cors import CORS
 import os
 import datetime
 from flask_jwt_extended import JWTManager, get_jwt_identity, jwt_required
@@ -22,14 +23,14 @@ def create_app():
     app.config["MONGO_URI"] = os.getenv("MONGO_URI")
     app.config["APP_SECRET_KEY"] = os.getenv("SECRET_KEY")
     app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
-    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = datetime.timedelta(hours=1)
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = datetime.timedelta(hours=12)
 
     mongo.init_app(app) # mongo db
     limiter.init_app(app) # rate limiting
+    CORS(app)
     api = Api(app)
     jwt.init_app(app)
 
-    from api.server_status import checkServerStatus
     from api.routes import BulkMailSender, TaskStatus
     from api.auth import auth_logout, auth_login, auth_callback, auth_status
 
@@ -46,9 +47,7 @@ def create_app():
     @jwt_required(optional=True)
     def home():
         decorators = [limiter.limit("50 per 1 minute")]
-        if checkServerStatus() == True:
-            return render_template('login.html')
-        return jsonify({'error', 'server error'})      
+        return render_template('login.html')      
     
     @app.route('/auth/store/')
     def store_token():

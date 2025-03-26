@@ -11,24 +11,27 @@ html {
 body {
   background-color: #1b1b1b;
 }
+
+/* main page */
 #navbar {
   width: 100%;
-  padding: 20px 0 5px 0;
+  padding: 15px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
+  position: relative;
 }
 #internal-nav {
   width: 50vw;
-  height: 8vh;
+  height: 50px;
   border-radius: 50px;
   background-color: rgb(255, 255, 255, 0.2);
   color: black;
 }
 #account {
-  width: 8vh;
-  height: 8vh;
+  width: 50px;
+  height: 50px;
   border-radius: 50px;
   background-color: rgb(255, 255, 255, 0.2);
   display: flex;
@@ -42,7 +45,8 @@ body {
   border-radius: 50%;
 }
 #profile_dropdown {
-  background-color: rgb(255, 255, 255, 0.2);
+  background-color: black;
+  border: solid white 2px;
   color: white;
   padding: 5px;
   position: absolute;
@@ -63,10 +67,94 @@ body {
   font-weight: 300;
   font-size: 1rem;
   transition: 0.2s;
+  text-wrap: nowrap;
   &:hover {
     scale: 1.05;
     cursor: pointer;
   }
+}
+.main_html_container1 {
+  display: flex;
+  justify-content: space-evenly;
+}
+#main_frame {
+  height: 100%;
+  width: 50%;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+}
+.main_input {
+  color: white;
+  padding: 0 25px;
+  display: block;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 300;
+  width: auto;
+}
+.main_input_txt {
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  width: 300px;
+  margin: 10px 0;
+}
+#recipients_inp {
+  width: 400px;
+  height: 50px;
+}
+#subject_inp {
+  width: 400px;
+  height: 50px;
+}
+#body_inp {
+  width: 80%;
+  height: 300px;
+}
+#send_mails {
+  width: 100px;
+  margin-left: 25px;
+  background-color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 10px;
+  margin-top: 10px;
+}
+#api_integration_info {
+  width: 50%;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+#api_integration_info p {
+  color: white;
+  font-weight: 300;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 10px;
+}
+#copy_token {
+  padding: 5px 10px;
+  border: None;
+  background-color: white;
+  border-radius: 50px;
+  cursor: pointer;
+}
+#access_key {
+  background-color: black;
+  font-family: monospace;
+  padding: 5px 10px;
+  border: solid white 2px;
+  border-radius: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  color: greenyellow;
+  font-size: 0.9rem;
+  width: 80%;
 }
 
 /* login page css */
@@ -78,7 +166,7 @@ body::-webkit-scrollbar {
   /* min-height: 100vh; */
   width: 100vw;
 }
-#container1{
+#container1 {
   min-height: 100vh;
 }
 #logo,
@@ -293,7 +381,7 @@ body::-webkit-scrollbar {
   color: white;
   font-weight: 300;
 }
-#github_info{
+#github_info {
   background-color: rgb(255, 255, 255, 0.15);
   margin-top: 50px;
   width: 50vw;
@@ -304,10 +392,87 @@ body::-webkit-scrollbar {
   align-items: center;
 }
 
-
-
 /* Phone Responsive */
 @media screen and (max-width: 480px) {
+  /* main page responsive */
+  #navbar {
+    width: 100%;
+    padding: 15px 15px 15px 0px;
+    justify-content: right;
+  }
+  #internal-nav{
+    display: none;
+  }
+  #profile_dropdown {
+    background-color: black;
+    border: solid white 2px;
+    color: white;
+    padding: 5px;
+    position: absolute;
+    top: 100%;
+    left: -150%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+  }
+  .drp_btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-weight: 300;
+    font-size: 1rem;
+    transition: 0.2s;
+    text-wrap: nowrap;
+    &:hover {
+      scale: 1.05;
+      cursor: pointer;
+    }
+  }
+  .main_html_container1 {
+    display: flex;
+    flex-direction: column;
+  }
+  #main_frame {
+    width: 100%;
+  }
+  .main_input{
+    margin: 5px 0px;
+  }
+  .main_input_txt {
+    border: none;
+    border-radius: 10px;
+    padding: 0px;
+    margin: 0;
+  }
+  #recipients_inp {
+    width: 80%;
+    height: 50px;
+  }
+  #subject_inp {
+    width: 80%;
+    height: 50px;
+  }
+  #body_inp {
+    width: 100%;
+    height: 300px;
+  }
+  #api_integration_info {
+    width: 100%;
+    padding: 25px 15px;
+  }
+  #api_integration_info p {
+    margin-left: 5px;
+  }
+  #access_key {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+
+  /* home responsive */
   #container2 {
     height: auto;
     width: 100vw;

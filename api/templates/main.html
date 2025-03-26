@@ -4,24 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='stylesheets/main.css')}}">
-    <title>Flask | BulkMailer</title>
+    <title>Flask | BulkMailer v1</title>
 </head>
 <body>
-    <nav id="navbar">
-        <div id="internal-nav">
-            
-        </div>
-        <div id="account">
-            <img src="{{profile_picture}}" id="profile_pic" alt="profile" crossorigin="anonymous"/>
-            <div id="profile_dropdown">
-                <button id="account_btn" class="drp_btn">Account</button>
-                <button id="logout_btn" class="drp_btn">Logout</button>
+    <div id="logo">
+        <div class="logo_shape"></div>
+        <div class="logo_shape"></div>
+        <div class="logo_shape"></div>
+        <div id="logo_filter"></div>
+    </div>
+    <div id="app">
+        <nav id="navbar">
+            <div id="internal-nav">
+            </div>
+            <div id="account">
+                <img src="{{profile_picture}}" id="profile_pic" alt="profile">
+                <div id="profile_dropdown">
+                    <button id="account_btn" class="drp_btn">Account</button>
+                    <button id="history_btn" class="drp_btn">Task History</button>
+                    <button id="logout_btn" class="drp_btn">Logout</button>
+                </div>
+            </div>
+        </nav>
+        <div id="continer1" class="main_html_container1">
+            <div id="main_frame">
+                <div id="recipients" class="main_input">
+                    <p>Enter Recipients Here :</p>
+                    <textarea class="main_input_txt" id="recipients_inp"></textarea>
+                </div>
+                <div id="subject" class="main_input">
+                    <p>Subject :</p>
+                    <input class="main_input_txt" id="subject_inp" type="text"/>
+                </div>
+                <div id="body" class="main_input">
+                    <p>Body :</p>
+                    <textarea class="main_input_txt" id="body_inp"></textarea>
+                </div>
+                <button id="send_mails">Send Mails</button>
+            </div>
+            <div id="api_integration_info">
+                <p>Your API Access Token: <button id="copy_token">Copy</button></p>
+                <div id="access_key"></div>
             </div>
         </div>
-    </nav>
-    <p style="color: #fff;">{{profile_info}}</p>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js" integrity="sha512-f6bQMg6nkSRw/xfHw5BCbISe/dJjXrVGfz9BSDwhZtiErHwk7ifbmBEtF9vFW8UNIQPhV2uEFVyI/UHob9r7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="{{url_for('static', filename='scripts/home.js')}}" defer></script>
+    <script src="{{url_for('static', filename='scripts/home.js')}}"></script>
 </body>
 
 </html>
