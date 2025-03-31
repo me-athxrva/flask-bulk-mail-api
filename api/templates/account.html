@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='stylesheets/account.css')}}">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div id="logout">Logout</div>
+    <div id="container">
+        <div id="account">
+            <div id="account_img">
+                <img id="account_img_src" src="{{url_for('static', filename='assets/icon.ico')}}" alt="profile picture">
+            </div>
+            <div id="account_mail">
+                <p class="para">Email:</p>
+                <div id="mail">yourmail@example.com</div>
+            </div>
+            <div id="account_access">
+                <p class="para">Account Status:</p>
+                <div id="account_status">Active</div>
+            </div>
+            <div id="delete_account">
+                <button id="delete_account_btn">Delete Account</button>
+                <p>This action is not reversible!!</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{{url_for('static', filename='scripts/account.js')}}"></script>
+</html>

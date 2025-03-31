@@ -1,10 +1,12 @@
 gsap.registerPlugin(ScrollTrigger);
 
-
 oauth_login_btn = document.getElementById('oauth_login');
 
 oauth_login_btn.addEventListener('click',()=>{
     window.location.href = '/auth/login'
+    setTimeout(() => {
+        preloaderAnim('page_out')
+    }, 500);
 })
 
 gsap.fromTo(".fade_out",{
@@ -28,7 +30,8 @@ async function checkAuthStatus() {
     const token = localStorage.getItem("jwt");
 
     if (!token) {
-        return console.error("No token found!")
+        preloaderAnim();
+        return console.error("No token found!");
     }
 
     try {
@@ -40,20 +43,29 @@ async function checkAuthStatus() {
             }
         });
 
-        const data = await response.json();
+        let data;
+        try {
+            data = await response.json();  
+        } catch (error) {
+            console.error("Failed to parse JSON. Response might not be JSON:", error);
+            return;
+        }
 
         if (response.ok) {
-            const app = document.getElementById("app");  
-            app.innerHTML = "";
-            app.innerHTML = data.html;
+            const app = document.getElementById("app");
+            app.innerHTML = data.html; 
+            // loadExternalScript('/static/scripts/preloader.js');
             loadExternalScript('/static/scripts/home.js');
+            preloaderAnim();
         } else {
-            console.log("Authentication failed.");
+            console.log("Authentication failed:", data?.error || "Unknown error.");
+            preloaderAnim();
         }
     } catch (error) {
         console.error("Error checking authentication status:", error);
     }
 }
+
 
 
 function loadExternalScript(src) {
@@ -71,4 +83,7 @@ function loadExternalScript(src) {
     document.body.appendChild(script);
 }
 
-document.addEventListener("DOMContentLoaded", checkAuthStatus);
+document.addEventListener("DOMContentLoaded",()=>{
+    checkAuthStatus();
+    
+});

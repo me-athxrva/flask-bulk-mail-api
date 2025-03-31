@@ -1,0 +1,15 @@
+#preloader{
+    background-color: #000;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 1001;
+    display: grid;
+    place-items: center
+}
+.loader{
+    background-color: green !important;
+    height: 60px;
+    width: 60px;
+    position: relative !important;
+}

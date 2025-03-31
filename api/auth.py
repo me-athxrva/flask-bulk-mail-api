@@ -1,5 +1,6 @@
 from authlib.integrations.requests_client import OAuth2Session
-from flask import session, redirect, request, render_template
+import jwt
+from flask import session, redirect, request, render_template, jsonify
 from flask_restful import Resource
 import os
 import requests
@@ -22,7 +23,7 @@ def get_google_oauth():
     )
 
 class auth_login(Resource):
-    decorators = [limiter.limit("1 per 30 seconds")]
+    decorators = [limiter.limit("2 per 30 seconds")]
     def get(self):
         google = get_google_oauth()
         authorization_url, state = google.create_authorization_url(
@@ -101,8 +102,24 @@ class auth_status(Resource):
             profile_picture=user_data.get("profile_picture")
 
         html_content = render_template('main.html', profile_picture=profile_picture)
-        return {"message": "User authenticated",'html': html_content}, 200
+        return {"message": "User authenticated","html": html_content}, 200
 
+class auth_delete(Resource):
+    def get(self, jwt_token):
+        decoded_token = jwt.decode(jwt_token, os.getenv("JWT_SECRET_KEY"), algorithms=["HS256"])
+        print("Decoded JWT:", decoded_token) 
+
+        jwt_identity = decoded_token.get("sub")
+        print("Extracted Email:", jwt_identity) 
+
+        if not jwt_identity:
+            return jsonify({"message": "Invalid token: No user email"}), 400
+        
+        session.pop("user", None)
+        frontend_url = '/'
+        mongo.db.users.delete_one({"email": jwt_identity})
+        mongo.db.task_logs.delete_many({"user_email": jwt_identity})
+        return redirect(frontend_url)
 
 def getUserInfo(access_token):
     headers = {"Authorization": f"Bearer {access_token}"}

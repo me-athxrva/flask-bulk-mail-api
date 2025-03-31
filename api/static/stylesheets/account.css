@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+*,html{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', 'sans-serif';
+}
+#container{
+    height: 100vh;
+    width: 100vw;
+    padding: 5px;
+}
+#account{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+}
+#account_img{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25vh;
+}
+#account_img_src{
+    border-radius: 50%;
+    padding: 3px;
+    height: 100%;
+}
+#account_mail{
+    padding: 10px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.para{
+    padding: 5px;
+    left: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+#mail{
+    padding: 8px 10px;
+    border: 1px solid #1b1b1b;
+    border-radius: 50px;
+    color: #1b1b1b;
+    font-size: 0.9rem;
+}
+#account_access{
+    padding: 10px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+#account_status{
+    background-color: rgb(153, 255, 0);
+    padding: 8px 10px;
+    border-radius: 50px;
+    user-select: none;
+}
+#delete_account{
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+}
+#delete_account_btn{
+    background-color: red;
+    border: none;
+    padding: 10px;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+}
+#delete_account p{
+    color: red;
+    font-weight: 600;
+}
+#logout{
+    padding: 10px 15px;
+    border-radius: 50px;
+    background-color: black;
+    color: white;
+    position: absolute;
+    z-index: 2;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}

@@ -5,9 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=warning" />
     <link rel="stylesheet" href="{{url_for('static', filename='stylesheets/main.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='stylesheets/preloader.css')}}">
     <title>Flask | BulkMailer</title>
 </head>
 <body>
+    <div id="preloader">
+        <div class="loader" id="logo">
+            <div class="logo_shape"></div>
+            <div class="logo_shape"></div>
+            <div class="logo_shape"></div>
+            <div id="logo_filter"></div>
+        </div>
+    </div>
     <div id="logo">
         <div class="logo_shape"></div>
         <div class="logo_shape"></div>
@@ -92,4 +101,5 @@
         <script src="{{url_for('static', filename='scripts/login.js')}}"></script>
     </div>
 </body>
+<script src="{{url_for('static', filename='scripts/preloader.js')}}"></script>
 </html>

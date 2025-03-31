@@ -1,6 +1,7 @@
 from flask import request
 from flask_restful import Resource
 from api.create_app import limiter
+from datetime import datetime
 from flask_jwt_extended import get_jwt_identity, jwt_required
 
 class BulkMailSender(Resource):
@@ -23,19 +24,26 @@ class BulkMailSender(Resource):
         task = send_bulk_mail.delay(user_email, recipient_list, subject, message)
         return {"task_id": task.id, "message": "Bulk email sending started"}, 200
 
-class TaskStatus(Resource):
-    # decorators = [limiter.limit("2 per minute")]
-    def get(self, task_id):
-        from api.extensions import mongo
-        log = mongo.db.task_logs.find_one({"task_id": task_id}, {"_id": 0})
 
-        if not log:
-            return {"error": "Task not found"}, 404
-        
-        # covert datetime format to string
-        if "created_at" in log:
-            log["created_at"] = log["created_at"].isoformat()
-        if "updated_at" in log:
-            log["updated_at"] = log["updated_at"].isoformat()
-        
-        return log, 200
+def convert_datetime(obj):
+    if isinstance(obj, dict):
+        return {k: convert_datetime(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_datetime(v) for v in obj]
+    elif isinstance(obj, datetime):
+        return obj.isoformat()
+    return obj
+
+
+class TaskHistory(Resource):
+    @jwt_required()
+    def get(self):
+        from api.extensions import mongo
+        user_email = get_jwt_identity()  
+
+        logs = list(mongo.db.task_logs.find({"user_email": user_email}, {"_id": 0}))
+
+        if not logs:
+            return {"message": "No task logs found for this user"}, 404
+
+        return convert_datetime(logs), 200  

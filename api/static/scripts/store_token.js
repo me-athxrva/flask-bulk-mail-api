@@ -39,12 +39,11 @@ async function checkAuthStatus() {
         } else {
             console.warn("Authentication failed:", data);
             localStorage.removeItem("jwt"); 
-            window.location.replace('/auth/login'); 
+            window.location.replace('/'); 
         }
     } catch (error) {
         console.error("Error checking authentication status:", error);
-        localStorage.removeItem("jwt"); 
-        window.location.replace('/auth/login');
+        localStorage.removeItem("jwt");
     }
 }
 
