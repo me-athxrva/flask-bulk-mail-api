@@ -1,0 +1,2 @@
+celery -A celery_worker.celery worker --loglevel=info --pool=gevent
+python -m api.app
